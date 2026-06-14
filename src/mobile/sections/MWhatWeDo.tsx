@@ -3,10 +3,11 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Code2, Smartphone, LayoutDashboard, ShoppingBag, Building2, Cloud, ChevronDown,
+  type LucideIcon,
 } from "lucide-react";
 
 type Service = {
-  icon: React.ComponentType<{ className?: string }>;
+  icon: LucideIcon;
   title: string;
   blurb: string;
   features: string[];
