@@ -122,7 +122,28 @@ export const projects: Project[] = [
       "Self-serve leave + attendance for staff",
       "Role-based access for managers and HR",
     ],
-    demoUrl: "https://demo.example.com/hrm",
+    showcase: {
+      title: "Enterprise HR Solution",
+      highlights: ["Employee Management", "Attendance Tracking", "Leave Management", "Payroll Processing"],
+      ctaLabel: "Explore Features",
+      sections: [
+        {
+          title: "Product Screens",
+          description: "A unified workspace for HR teams, managers, and employees.",
+          items: ["Employee directory with smart filters", "Manager approval inbox", "Self-serve employee portal", "Payroll run dashboard"],
+        },
+        {
+          title: "Core Modules",
+          description: "Everything an HR team needs, modular and role-aware.",
+          items: ["Attendance with geo + biometric sync", "Leave workflows with policies", "Payroll, payslips & tax reports", "Performance reviews & OKRs"],
+        },
+        {
+          title: "Workflow",
+          description: "How a leave request flows end-to-end.",
+          items: ["Employee submits request", "Manager approves in inbox", "HR auto-syncs to payroll", "Notifications to all stakeholders"],
+        },
+      ],
+    },
   },
   {
     slug: "fee-management",
