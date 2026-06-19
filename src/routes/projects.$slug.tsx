@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, ArrowUpRight, CalendarCheck, CheckCircle2, ExternalLink, Sparkles } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowLeft, ArrowUpRight, CalendarCheck, CheckCircle2, ExternalLink, Layers, Sparkles, X } from "lucide-react";
 import { getProject, projects, type Project } from "@/config/projects";
 import { BlurReveal } from "@/components/fx/BlurReveal";
 import { GradientMesh } from "@/components/fx/GradientMesh";
@@ -43,6 +45,9 @@ export const Route = createFileRoute("/projects/$slug")({
 
 function ProjectDetail() {
   const { project } = Route.useLoaderData() as { project: Project };
+  const [showcaseOpen, setShowcaseOpen] = useState(false);
+
+
 
   return (
     <>
@@ -142,20 +147,54 @@ function ProjectDetail() {
                 </div>
               </BlurReveal>
 
+              {project.showcase && (
+                <BlurReveal delay={0.08}>
+                  <motion.div
+                    whileHover={{ y: -4 }}
+                    transition={{ type: "spring", stiffness: 240, damping: 22 }}
+                    className="relative overflow-hidden rounded-3xl border border-white/40 bg-white/70 backdrop-blur-xl p-6 shadow-[0_24px_60px_-24px_rgba(99,102,241,0.35)]"
+                  >
+                    <div aria-hidden className="absolute -top-16 -right-16 size-48 rounded-full bg-gradient-to-br from-primary/30 via-fuchsia-400/20 to-cyan-400/20 blur-3xl" />
+                    <div className="relative">
+                      <div className="inline-flex items-center gap-1.5 rounded-full bg-foreground/[0.04] border border-foreground/8 px-2.5 py-1 text-[10px] font-semibold tracking-[0.18em] uppercase text-foreground/70">
+                        <Layers className="size-3" /> Interactive Showcase
+                      </div>
+                      <h3 className="mt-3 font-display text-2xl text-foreground">{project.showcase.title}</h3>
+                      <ul className="mt-4 space-y-2">
+                        {project.showcase.highlights.map((h) => (
+                          <li key={h} className="flex items-center gap-2 text-sm text-foreground/85">
+                            <CheckCircle2 className="size-4 text-primary shrink-0" /> {h}
+                          </li>
+                        ))}
+                      </ul>
+                      <motion.button
+                        whileTap={{ scale: 0.97 }}
+                        onClick={() => setShowcaseOpen(true)}
+                        className="mt-5 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-primary via-fuchsia-500 to-cyan-500 px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_-18px_rgba(168,85,247,0.6)] hover:shadow-[0_22px_50px_-18px_rgba(168,85,247,0.75)] transition-shadow"
+                      >
+                        <Sparkles className="size-4" /> {project.showcase.ctaLabel}
+                      </motion.button>
+                    </div>
+                  </motion.div>
+                </BlurReveal>
+              )}
+
               <BlurReveal delay={0.1}>
                 <div className="rounded-3xl bg-cyber p-6 text-white shadow-[0_24px_60px_-20px_rgba(99,102,241,0.55)]">
                   <h3 className="font-display text-2xl">Like what you see?</h3>
                   <p className="mt-1.5 text-sm text-white/85">Let's build something similar — or even better — for your business.</p>
                   <div className="mt-5 flex flex-col gap-2.5">
                     {project.demoUrl && (
-                      <a
+                      <motion.a
+                        whileHover={{ y: -2 }}
+                        whileTap={{ scale: 0.97 }}
                         href={project.demoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-1.5 rounded-full bg-white text-foreground px-5 py-3 text-sm font-semibold hover:-translate-y-0.5 transition-transform"
+                        className="inline-flex items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-white via-cyan-100 to-fuchsia-100 text-foreground px-5 py-3 text-sm font-semibold shadow-[0_18px_40px_-18px_rgba(255,255,255,0.6)]"
                       >
                         <ExternalLink className="size-4" /> View Live Demo
-                      </a>
+                      </motion.a>
                     )}
                     <Link
                       to="/contact"
@@ -200,6 +239,69 @@ function ProjectDetail() {
       </section>
 
       <CTAStrip />
+
+      <AnimatePresence>
+        {project.showcase && showcaseOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-end md:items-center justify-center bg-foreground/40 backdrop-blur-sm p-0 md:p-6"
+            onClick={() => setShowcaseOpen(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${project.showcase.title} showcase`}
+          >
+            <motion.div
+              initial={{ y: 80, opacity: 0, scale: 0.98 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 80, opacity: 0, scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 260, damping: 28 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full md:max-w-3xl max-h-[92vh] overflow-y-auto rounded-t-3xl md:rounded-3xl bg-white/95 backdrop-blur-2xl border border-white/60 shadow-[0_40px_120px_-30px_rgba(99,102,241,0.45)]"
+            >
+              <div className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-foreground/8 bg-white/85 backdrop-blur-xl px-5 md:px-7 py-4">
+                <div>
+                  <div className="text-[10px] font-semibold tracking-[0.18em] uppercase text-foreground/55">Showcase</div>
+                  <h3 className="font-display text-xl md:text-2xl text-foreground">{project.showcase.title}</h3>
+                </div>
+                <button
+                  onClick={() => setShowcaseOpen(false)}
+                  className="rounded-full p-2 hover:bg-foreground/[0.06] transition-colors"
+                  aria-label="Close"
+                >
+                  <X className="size-5" />
+                </button>
+              </div>
+              <div className="px-5 md:px-7 py-6 space-y-5">
+                <div className="relative overflow-hidden rounded-2xl border border-foreground/8">
+                  <img src={project.image} alt={project.name} className="block w-full h-auto aspect-[16/9] object-cover" />
+                </div>
+                {project.showcase.sections.map((s) => (
+                  <div key={s.title} className="rounded-2xl border border-foreground/8 bg-white p-5 shadow-soft">
+                    <h4 className="font-display text-lg text-foreground">{s.title}</h4>
+                    <p className="mt-1 text-sm text-muted-foreground">{s.description}</p>
+                    <ul className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {s.items.map((it) => (
+                        <li key={it} className="flex items-start gap-2 rounded-xl bg-foreground/[0.03] border border-foreground/5 px-3 py-2 text-sm text-foreground/85">
+                          <CheckCircle2 className="size-4 text-primary mt-0.5 shrink-0" /> {it}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+                <Link
+                  to="/contact"
+                  onClick={() => setShowcaseOpen(false)}
+                  className="inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-primary via-fuchsia-500 to-cyan-500 px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_-18px_rgba(168,85,247,0.6)]"
+                >
+                  <CalendarCheck className="size-4" /> Request a personalized walkthrough
+                </Link>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

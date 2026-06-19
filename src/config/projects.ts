@@ -1,3 +1,10 @@
+export type Showcase = {
+  title: string;
+  highlights: string[];
+  ctaLabel: string;
+  sections: { title: string; description: string; items: string[] }[];
+};
+
 export type Project = {
   slug: string;
   name: string;
@@ -9,6 +16,7 @@ export type Project = {
   features: string[];
   benefits: string[];
   demoUrl?: string;
+  showcase?: Showcase;
 };
 
 export const projects: Project[] = [
@@ -36,7 +44,7 @@ export const projects: Project[] = [
       "Plug-and-play payments (Stripe, Razorpay, PayPal)",
       "Scales from 10 to 10,000+ SKUs",
     ],
-    demoUrl: "https://demo.example.com/ecommerce",
+    demoUrl: "https://maison-rose-six.vercel.app/",
   },
   {
     slug: "restaurant-pos",
@@ -62,7 +70,7 @@ export const projects: Project[] = [
       "Owner dashboard works from anywhere",
       "Reduces billing errors to near-zero",
     ],
-    demoUrl: "https://demo.example.com/restaurant-qr",
+    demoUrl: "https://dineinflowd.vercel.app/login",
   },
   {
     slug: "school-management",
@@ -88,7 +96,7 @@ export const projects: Project[] = [
       "Centralized records — exportable any time",
       "Works across multiple branches",
     ],
-    demoUrl: "https://demo.example.com/school-erp",
+    demoUrl: "https://schooldemo-amixsites.vercel.app/",
   },
   {
     slug: "hrm-software",
@@ -114,7 +122,28 @@ export const projects: Project[] = [
       "Self-serve leave + attendance for staff",
       "Role-based access for managers and HR",
     ],
-    demoUrl: "https://demo.example.com/hrm",
+    showcase: {
+      title: "Enterprise HR Solution",
+      highlights: ["Employee Management", "Attendance Tracking", "Leave Management", "Payroll Processing"],
+      ctaLabel: "Explore Features",
+      sections: [
+        {
+          title: "Product Screens",
+          description: "A unified workspace for HR teams, managers, and employees.",
+          items: ["Employee directory with smart filters", "Manager approval inbox", "Self-serve employee portal", "Payroll run dashboard"],
+        },
+        {
+          title: "Core Modules",
+          description: "Everything an HR team needs, modular and role-aware.",
+          items: ["Attendance with geo + biometric sync", "Leave workflows with policies", "Payroll, payslips & tax reports", "Performance reviews & OKRs"],
+        },
+        {
+          title: "Workflow",
+          description: "How a leave request flows end-to-end.",
+          items: ["Employee submits request", "Manager approves in inbox", "HR auto-syncs to payroll", "Notifications to all stakeholders"],
+        },
+      ],
+    },
   },
   {
     slug: "fee-management",
@@ -140,7 +169,28 @@ export const projects: Project[] = [
       "PDF receipts generated instantly",
       "Cuts manual collection effort by 70%",
     ],
-    demoUrl: "https://demo.example.com/fees",
+    showcase: {
+      title: "Fee Management Suite",
+      highlights: ["Fee Collection", "Online Payments", "Due Tracking", "Automated Receipts"],
+      ctaLabel: "See Module Overview",
+      sections: [
+        {
+          title: "Collection & Payments",
+          description: "Accept fees the way parents prefer to pay.",
+          items: ["UPI, cards, net banking, wallets", "Partial payments & installments", "Auto-reconciliation with ledger", "Concessions & scholarships"],
+        },
+        {
+          title: "Due Tracking",
+          description: "Never chase a payment manually again.",
+          items: ["Automated SMS + email reminders", "Class / batch level dashboards", "Parent payment history", "Aging reports for finance"],
+        },
+        {
+          title: "Receipts & Reports",
+          description: "Compliance-ready paperwork, generated instantly.",
+          items: ["Branded PDF receipts", "GST & tax-ready exports", "Daily collection reports", "Audit logs for every transaction"],
+        },
+      ],
+    },
   },
   {
     slug: "saas-product-development",
@@ -166,7 +216,33 @@ export const projects: Project[] = [
       "RBAC + audit logs out of the box",
       "Built to scale across tenants and regions",
     ],
-    demoUrl: "https://demo.example.com/saas",
+    showcase: {
+      title: "SaaS Platform Blueprint",
+      highlights: ["Multi-Tenant Architecture", "Subscription Billing", "Role-Based Access", "Analytics Dashboard"],
+      ctaLabel: "View Capabilities",
+      sections: [
+        {
+          title: "SaaS Architecture",
+          description: "Production-grade foundations from day one.",
+          items: ["Isolated multi-tenant data model", "Edge-deployed APIs", "Background jobs & queues", "Observability + audit logs"],
+        },
+        {
+          title: "Product Screens",
+          description: "Polished UI for every persona in your platform.",
+          items: ["Marketing site + pricing", "Onboarding & workspace setup", "Admin & billing console", "Customer-facing analytics"],
+        },
+        {
+          title: "Development Process",
+          description: "How we ship from idea to scaled platform.",
+          items: ["Discovery & technical design", "MVP in 4–6 weeks", "Beta with real customers", "Scale, security & compliance"],
+        },
+        {
+          title: "Technology Stack",
+          description: "Modern, type-safe, and edge-ready.",
+          items: ["Next.js / TanStack Start + TypeScript", "Postgres + Prisma + Row-Level Security", "Stripe billing & metering", "AWS / Cloudflare deployment"],
+        },
+      ],
+    },
   },
 ];
 
