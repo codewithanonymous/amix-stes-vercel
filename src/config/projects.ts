@@ -216,7 +216,33 @@ export const projects: Project[] = [
       "RBAC + audit logs out of the box",
       "Built to scale across tenants and regions",
     ],
-    demoUrl: "https://demo.example.com/saas",
+    showcase: {
+      title: "SaaS Platform Blueprint",
+      highlights: ["Multi-Tenant Architecture", "Subscription Billing", "Role-Based Access", "Analytics Dashboard"],
+      ctaLabel: "View Capabilities",
+      sections: [
+        {
+          title: "SaaS Architecture",
+          description: "Production-grade foundations from day one.",
+          items: ["Isolated multi-tenant data model", "Edge-deployed APIs", "Background jobs & queues", "Observability + audit logs"],
+        },
+        {
+          title: "Product Screens",
+          description: "Polished UI for every persona in your platform.",
+          items: ["Marketing site + pricing", "Onboarding & workspace setup", "Admin & billing console", "Customer-facing analytics"],
+        },
+        {
+          title: "Development Process",
+          description: "How we ship from idea to scaled platform.",
+          items: ["Discovery & technical design", "MVP in 4–6 weeks", "Beta with real customers", "Scale, security & compliance"],
+        },
+        {
+          title: "Technology Stack",
+          description: "Modern, type-safe, and edge-ready.",
+          items: ["Next.js / TanStack Start + TypeScript", "Postgres + Prisma + Row-Level Security", "Stripe billing & metering", "AWS / Cloudflare deployment"],
+        },
+      ],
+    },
   },
 ];
 
