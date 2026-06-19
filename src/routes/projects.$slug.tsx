@@ -45,6 +45,9 @@ export const Route = createFileRoute("/projects/$slug")({
 
 function ProjectDetail() {
   const { project } = Route.useLoaderData() as { project: Project };
+  const [showcaseOpen, setShowcaseOpen] = useState(false);
+
+
 
   return (
     <>
