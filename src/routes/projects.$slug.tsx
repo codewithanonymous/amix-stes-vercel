@@ -239,6 +239,69 @@ function ProjectDetail() {
       </section>
 
       <CTAStrip />
+
+      <AnimatePresence>
+        {project.showcase && showcaseOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-end md:items-center justify-center bg-foreground/40 backdrop-blur-sm p-0 md:p-6"
+            onClick={() => setShowcaseOpen(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${project.showcase.title} showcase`}
+          >
+            <motion.div
+              initial={{ y: 80, opacity: 0, scale: 0.98 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 80, opacity: 0, scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 260, damping: 28 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full md:max-w-3xl max-h-[92vh] overflow-y-auto rounded-t-3xl md:rounded-3xl bg-white/95 backdrop-blur-2xl border border-white/60 shadow-[0_40px_120px_-30px_rgba(99,102,241,0.45)]"
+            >
+              <div className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-foreground/8 bg-white/85 backdrop-blur-xl px-5 md:px-7 py-4">
+                <div>
+                  <div className="text-[10px] font-semibold tracking-[0.18em] uppercase text-foreground/55">Showcase</div>
+                  <h3 className="font-display text-xl md:text-2xl text-foreground">{project.showcase.title}</h3>
+                </div>
+                <button
+                  onClick={() => setShowcaseOpen(false)}
+                  className="rounded-full p-2 hover:bg-foreground/[0.06] transition-colors"
+                  aria-label="Close"
+                >
+                  <X className="size-5" />
+                </button>
+              </div>
+              <div className="px-5 md:px-7 py-6 space-y-5">
+                <div className="relative overflow-hidden rounded-2xl border border-foreground/8">
+                  <img src={project.image} alt={project.name} className="block w-full h-auto aspect-[16/9] object-cover" />
+                </div>
+                {project.showcase.sections.map((s) => (
+                  <div key={s.title} className="rounded-2xl border border-foreground/8 bg-white p-5 shadow-soft">
+                    <h4 className="font-display text-lg text-foreground">{s.title}</h4>
+                    <p className="mt-1 text-sm text-muted-foreground">{s.description}</p>
+                    <ul className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {s.items.map((it) => (
+                        <li key={it} className="flex items-start gap-2 rounded-xl bg-foreground/[0.03] border border-foreground/5 px-3 py-2 text-sm text-foreground/85">
+                          <CheckCircle2 className="size-4 text-primary mt-0.5 shrink-0" /> {it}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+                <Link
+                  to="/contact"
+                  onClick={() => setShowcaseOpen(false)}
+                  className="inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-primary via-fuchsia-500 to-cyan-500 px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_-18px_rgba(168,85,247,0.6)]"
+                >
+                  <CalendarCheck className="size-4" /> Request a personalized walkthrough
+                </Link>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
